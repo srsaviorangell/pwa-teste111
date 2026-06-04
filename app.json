@@ -26,16 +26,20 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "display": "standalone",
-      "startUrl": "/",
-      "name": "saojoaoirece",
-      "shortName": "saojoaoirece",
-      "themeColor": "#ffffff",
-      "backgroundColor": "#ffffff",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "manifest": {
+        "name": "saojoaoirece",
+        "short_name": "saojoaoirece",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#ffffff",
+        "theme_color": "#ffffff",
+        "orientation": "portrait"
+      }
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
