@@ -50,7 +50,7 @@ export function CameraMoldura({  color = "#9E9E9E",size = 24,}){
 
 export function SetaDireita({  color = "#9E9E9E",size = 24,}){
   return(
-    <Svg  width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} stroke-width="5" stroke-linecap="round" stroke-linejoin="round" >
+    <Svg  width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} stroke-width={5} stroke-linecap="round" stroke-linejoin="round" >
     <Path d="m10 8 4 4-4 4"/>
     </Svg>
 
@@ -60,7 +60,7 @@ export function SetaDireita({  color = "#9E9E9E",size = 24,}){
 
 export function SetaEsquerda({  color = "#9E9E9E",size = 24,}){
   return(
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} stroke-width={2} stroke-linecap="round" stroke-linejoin="round" >
       <Path d="m14 16-4-4 4-4"/>
     </Svg>
    

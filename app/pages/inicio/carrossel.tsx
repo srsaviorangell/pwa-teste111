@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { FlatList, Image, TouchableOpacity, View, ViewToken } from 'react-native';
+import { FlatList, Image, TouchableOpacity, View, ViewToken, Dimensions, Platform } from 'react-native';
 import { SetaDireita, SetaEsquerda } from '../../../src/components/Icons';
 import { requisicaoCarrossel } from "../../../src/requisicao/requisicaoCarrossel";
 import { ThemeContext } from '../../../src/theme/ThemeContext';
@@ -10,156 +10,174 @@ import { ThemeContext } from '../../../src/theme/ThemeContext';
 export default function Carrossel() {
 
     const flatListRef = useRef<FlatList<any>>(null)
-    
+
     const { dark, theme } = useContext(ThemeContext)
 
-    const [indexAtual, setIndexAtual] = useState(0) 
+    const [indexAtual, setIndexAtual] = useState(0)
     const [data, setData] = useState<any[]>([])
 
-    const viewabilityConfig = { // consta que vai vericar qunado inte e visivel na tela
-        itemVisiblePercentThreshold: 50,               // aqui e o limie que usamos para dizer exemplo ele sera visivel quando tiver 50% da tela no card
-    }
+    const [larguraTela, setLarguraTela] = useState(0)
 
-    const onViewableItemsChanged  = useRef( // a tradução direta do card e ( quando os intens visiveis muda) resumindo ele vai pegar qunado ele deixa de ser visivel e muda 
-        ({ viewableItems  }: { viewableItems: ViewToken[] }) => {  // viewableItems -> e o item que esta na teala agora 
-        if (viewableItems.length > 0 ){
-            setIndexAtual(viewableItems[0].index ?? 0)
-        }
-    }).current
-
-    useEffect(()=>{
-        async function carregarEventos(){
+    useEffect(() => {
+        async function carregarEventos() {
             const eventos = await requisicaoCarrossel()
             setData(eventos)
         }
         carregarEventos()
     }, [])
 
-    const nextSlide = useCallback(()=>{
+    const nextSlide = useCallback(() => {
         if (data.length === 0) return
         const nextIndex = (indexAtual + 1) % data.length
-        
+
         flatListRef.current?.scrollToIndex({
             index: nextIndex,
             animated: true,
         })
 
         setIndexAtual(nextIndex)
-    },[indexAtual, data])
+    }, [indexAtual, data])
 
-    const prevSlide = useCallback(()=>{
+    const prevSlide = useCallback(() => {
         if (data.length === 0) return
 
         const prevIndex = // pega o index ou o tamnaho e diminiu 
-        
-        indexAtual === 0
-        ? data.length - 1
-        : indexAtual - 1 
+
+            indexAtual === 0
+                ? data.length - 1
+                : indexAtual - 1
 
         flatListRef.current?.scrollToIndex({
             index: prevIndex,
             animated: true,
         })
-        
+
         setIndexAtual(prevIndex)
-    },[indexAtual, data])
+    }, [indexAtual, data])
 
 
 
-    useEffect(()=>{
-        if( data.length === 0 ) return 
+    useEffect(() => {
+        if (data.length === 0) return
 
-        const interval = setInterval(()=>{
-            const nextIndex = ( indexAtual + 1) % data.length
+        const interval = setInterval(() => {
+            const nextIndex = (indexAtual + 1) % data.length
             nextSlide()
-        },7000)
-        return()=> clearInterval(interval)
-    },[nextSlide, data])
+        }, 7000)
+        return () => clearInterval(interval)
+    }, [nextSlide, data])
 
 
+    const cardLargura = larguraTela * 0.98
+    const cardAltura = 220
+    console.log('🔪 Container:', larguraTela)
+    console.log('🔪 Card:', cardLargura)
 
-  return (
-    <>
-    <View className='relative top-10'   style={{ 
-            height: "234px",
-            overflow:'hidden',
-            width: "99%" ,
-            
-           
-            
-        }} >
-        <FlatList  
-        style={{ 
-            borderRadius: 12, 
-            borderWidth: 2,
-            borderColor:'transparent',
-            shadowColor: "rgba(245,73,0,0.6)",
-            shadowOffset: { width:3, height: 3 },
-            shadowOpacity: 1,
-            shadowRadius: 4,
-            elevation: 8,
-            backgroundColor: 'transparent',  
-            width: "99%" ,           
-            }}
-        ref={flatListRef}
-        data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => ( 
-            <View  style={{ width:335,
-                            height: 200,
-                            marginRight: 0, 
-                            
-            }} className=' top-'>
-                <Image source={{ uri: dark ? item.gallery[1] : item.gallery[0] }} 
+    return (
+        <>
+            <View className='relative top-10' style={{
+                width: "100%",
+                marginTop: 5,
+
+            }} onLayout={(event) =>{
+                const largura = event.nativeEvent.layout.width
+                console.log('Largura do container:', largura)
+                setLarguraTela(largura)
+            }}>
+                {larguraTela > 0 && (
+                <FlatList
                     style={{
-                        width:"100%",
-                        height:"100%",
-                        borderWidth: 3,
-                        borderColor: dark ? 'rgba(245,73,0,0.3)':'rgba(0,0,0,0.5)',
+                        borderRadius: 12,
+                        borderWidth: 2,
+                        borderColor: 'transparent',
+                        shadowColor: "rgba(245,73,0,0.6)",
+                        shadowOffset: { width: 3, height: 3 },
+                        shadowOpacity: 1,
+                        shadowRadius: 4,
+                        elevation: 8,
+                        backgroundColor: 'transparent',
                         
+
                     }}
-                    className='rounded-xl '
+                    ref={flatListRef}
+                    data={data}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => item.id}
+                    snapToInterval={cardLargura + 20} // 20 é o espaçamento entre os cards
+                    snapToAlignment="center"
+                    decelerationRate="fast"
+                    getItemLayout={(_, index) => ({
+                        length: cardLargura + 20,
+                        offset: (cardLargura + 20) * index,
+                        index,
+                    })}
+                    contentContainerStyle={{
+                        paddingHorizontal: (larguraTela - cardLargura) /1, // centraliza o primeiro e o último card
+                    }}
+                    
+                   
+                    renderItem={({ item }) => (
+                        <View style={{
+                            width: cardLargura + 19.5,
+                            height: 200,
+                            
+
+                        }} className=' '>
+                            <View className='' >
+                                <Image
+                                    source={{ uri: dark ? item.gallery[1] : item.gallery[0] }}
+                                    style={{
+                                        right: 2,
+                                        width: '100%',     
+                                        height: 200,
+                                        borderRadius: 12,
+                                        borderWidth: 3,
+                                        borderColor: dark ? 'rgba(245,73,0,0.3)' : 'rgba(0,0,0,0.5)',
+                                    }} 
+                                    resizeMode="cover"
+                                    
+                                />
+                            </View>
+
+                        </View>
+                    )}
+                     
+
                 />
-               
+                )}
+                <View className='flex-row justify-center  p-3'>
+
+                    {data.map((_, index) => (
+                        <View
+                            key={index}
+                            className={`mx-1 rounded-xl ${index === indexAtual
+                                ? "w-4 h-2.0 bg-black"
+                                : "w-1.5 h-1.5 bg-[#D1D5DB]"
+                                }`}
+                        />
+                    ))}
+
+                </View>
+
+                
 
             </View>
-        )}
-        horizontal // deixa flat na horizontal 
-        showsHorizontalScrollIndicator={false} //esconder bara de rolagem 
-        
-        />
-        <View className='flex-row justify-center  p-3'>
-            
-            {data.map((_, index) => (
-                <View
-                    key={index}
-                    className={`mx-1 rounded-xl ${
-                    index === indexAtual
-                     ? "w-4 h-2.0 bg-black"
-                    : "w-1.5 h-1.5 bg-[#D1D5DB]"
-                      }`}
-                />
-            ))}
-            
-        </View> 
-             
-
-    </View>
-    <TouchableOpacity 
+            <TouchableOpacity
                 onPress={nextSlide}
-                className='absolute right-2 top-[45%] -translate-y-1/2 bg-black/20 p-2 rounded-full'
+                className='absolute right-2 top-[55%] -translate-y-1/2 bg-black/20 p-2 rounded-full'
                 activeOpacity={0.5}
             >
                 <SetaDireita size={24} color="#fff" />
-    </TouchableOpacity>
-    <TouchableOpacity 
+            </TouchableOpacity>
+            <TouchableOpacity
                 onPress={prevSlide}
-                className='absolute left-2 top-[45%] -translate-y-1/2 bg-black/20 p-2 rounded-full'
+                className='absolute left-2 top-[55%] -translate-y-1/2 bg-black/20 p-2 rounded-full'
                 activeOpacity={0.5}
             >
                 <SetaEsquerda size={24} color="#fff" />
-    </TouchableOpacity>
-    </>
-  )
+            </TouchableOpacity>
+        </>
+    )
 }
 
