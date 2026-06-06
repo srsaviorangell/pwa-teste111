@@ -18,7 +18,7 @@ export default function CardsParaPageProgamacao({diaSelecionado}: SelecionarDiaP
   return (
     <>
     {eventos.map((item) => (
-        <View id="card-conteiner" className=' h-[10rem] rounded-[1.2rem] flex flex-row justify-between items-center ' style={[styles.card, styles.cssbuttonsIoButton]}>
+        <View id="card-conteiner" className='  w-full h-[10rem] rounded-[1.2rem] flex flex-row justify-between items-center ' style={[styles.card, styles.cssbuttonsIoButton]}>
     
             <View id="card-filho1" className=' border-r w-[22%] h-full flex justify-center items-center gap-2'>
     

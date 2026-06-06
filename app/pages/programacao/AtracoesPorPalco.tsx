@@ -24,7 +24,7 @@ export default function AtracoesPorPalco({diaSelecionado}: SelecionarDiaProps) {
     showsVerticalScrollIndicator={false}
     nestedScrollEnabled={true}>
     
-      <View className=' w-full h-full flex justify-start items-center gap-5 mt-5 '>
+      <View className=' w-full h-full flex justify-start items-center gap-3 mt-5  '>
         <CardsParaPageProgamacao   diaSelecionado={diaSelecionado}
  />
 
