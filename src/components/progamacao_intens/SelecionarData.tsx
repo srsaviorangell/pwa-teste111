@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react'
-import { Text, View,TouchableOpacity } from 'react-native'
-import { ThemeContext } from '../../../src/theme/ThemeContext'
+import React, { useContext } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { ThemeContext } from '../../../src/theme/ThemeContext';
 
 type SelecionarDataProps = {
   setDiaSelecionado: React.Dispatch<React.SetStateAction<string | null>>;
@@ -27,8 +27,8 @@ export default function SelecionarData({setDiaSelecionado}: SelecionarDataProps)
 
         <TouchableOpacity className='border rounded-full flex justify-center  items-center w-[16%] h-8' style={{backgroundColor: dark ? theme.colors.cards.show.mustard : theme.colors.cards.show.strong}}
                                 activeOpacity={0.3} onPress={() => {
-  console.log("clicou no dia 19");
-  setDiaSelecionado("19");
+  console.log("clicou no dia 20");
+  setDiaSelecionado("20");
 }}
 >
 

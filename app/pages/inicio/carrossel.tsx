@@ -70,8 +70,7 @@ export default function Carrossel() {
 
     const cardLargura = larguraTela * 0.98
     const cardAltura = 220
-    console.log('🔪 Container:', larguraTela)
-    console.log('🔪 Card:', cardLargura)
+    
 
     return (
         <>
@@ -81,7 +80,6 @@ export default function Carrossel() {
 
             }} onLayout={(event) =>{
                 const largura = event.nativeEvent.layout.width
-                console.log('Largura do container:', largura)
                 setLarguraTela(largura)
             }}>
                 {larguraTela > 0 && (

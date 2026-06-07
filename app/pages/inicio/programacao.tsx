@@ -25,6 +25,7 @@ const ProgramacaoContext = createContext({});
   
 
 const handlePressPalcoPrincipal = async () => {
+   console.log("CLICOU PALCO PRINCIPAL");
   setCarregandoPalco('principal');
 
   try {

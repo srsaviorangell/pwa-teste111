@@ -17,22 +17,22 @@ export default function CardsParaPageProgamacao({diaSelecionado}: SelecionarDiaP
         const eventosFiltrados = diaSelecionado ? eventos.filter(evento => evento.dia === diaSelecionado) : eventos;
   return (
     <>
-    {eventos.map((item) => (
-        <View id="card-conteiner" className='  w-full h-[10rem] rounded-[1.2rem] flex flex-row justify-between items-center ' style={[styles.card, styles.cssbuttonsIoButton]}>
+    {eventosFiltrados.map((item) => (
+        <View  key={item.id} id="card-conteiner" className='  w-full h-[10rem] rounded-[1.2rem] flex flex-row justify-between items-center ' style={[styles.card, styles.cssbuttonsIoButton]}>
     
             <View id="card-filho1" className=' border-r w-[22%] h-full flex justify-center items-center gap-2'>
     
-              <Text  key={item.id} className=" font-semibold text-sm"
+              <Text  className=" font-semibold text-sm"
                 style={[styles.textPadroes]}>SEX</Text>
     
               <Text className=" font-black text-3xl " 
-                style={[styles.textDataChamativa]} key={item.id}>{item.dia}</Text>
+                style={[styles.textDataChamativa]}>{item.dia}</Text>
     
     
               <Text  className=" font-semibold text-sm"
               style={[styles.textPadroes]}>JUN</Text>
     
-              <Text  key={item.id} className=" font-semibold text-black "
+              <Text   className=" font-semibold text-black "
               style={[styles.textPadroes]}>{item.horario}</Text>
     
             </View>
@@ -49,10 +49,10 @@ export default function CardsParaPageProgamacao({diaSelecionado}: SelecionarDiaP
     
                 <View className=' flex  justify-between  gap-5'>
     
-                    <Text key={item.id} className=" font-semibold text-3xl  w-full h-20  overflow-hidden "
+                    <Text  className=" font-semibold text-3xl  w-full h-20  overflow-hidden "
                     style={[styles.textBandas]}>{item.artist}</Text>
     
-                    <Text key={item.id} className=" absolute font-semibold text-lg  top-[5rem]  "
+                    <Text  className=" absolute font-semibold text-lg  top-[5rem]  "
                   style={[styles.textPadroes]}>{item.stage}</Text>
                   
                 </View>
