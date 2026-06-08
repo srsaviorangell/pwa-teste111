@@ -16,7 +16,7 @@ const [diaSelecionado, setDiaSelecionado] = useState<string | null>(null);
         <View className=' m-8 w-[98%] flex justify-center  bottom-[1rem] '>
           <SelecionarData   setDiaSelecionado={setDiaSelecionado}/>
         </View>
-        <View className='absolute flex justify-center  w-full top-[67%] h-[32rem]  '>
+        <View className='absolute flex justify-center  w-full top-[72%] h-[32rem]  '>
           <AtracoesPorPalco   diaSelecionado={diaSelecionado} />
       </View>
         
