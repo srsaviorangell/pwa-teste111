@@ -44,7 +44,7 @@ function LayoutContent() {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
-      <SafeAreaProvider style={{ flex: 1 , backgroundColor: dark ? theme.colors.background.primary :theme.colors.background.primary }} className="h-20">
+      <SafeAreaProvider style={{  backgroundColor: dark ? theme.colors.background.primary :theme.colors.background.primary }} className="h-20">
         <StatusBar style={dark ? 'light' : 'dark'} />          
         <View className="flex h-[91.9%]">  
             <Slot />
