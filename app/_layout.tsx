@@ -46,7 +46,7 @@ function LayoutContent() {
 
       <SafeAreaProvider style={{ flex: 1 , backgroundColor: dark ? theme.colors.background.primary :theme.colors.background.primary }} className="h-20">
         <StatusBar style={dark ? 'light' : 'dark'} />          
-        <View style={{ flex: 1 }} >
+        <View className="flex h-[91.9%]">  
             <Slot />
         </View>
         <NavBottom active={active} setActive={setActive}/>
