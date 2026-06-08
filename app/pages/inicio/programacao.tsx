@@ -71,23 +71,27 @@ export default function Programacao() {
 
       <Link href="/pages/programacao/programacaoGeral" asChild>
 
-        <Pressable
-          id="palcoPrincipal"
-          className="w-[45%] h-full flex items-center rounded-xl"
-          style={{
-            backgroundColor: 'red',
-            borderWidth: 4,
-            borderColor: 'yellow',
-          }}
+        <Pressable id='palcoPrincipal' className='  w-[45%] h-full flex  items-center rounded-xl'
+          style={{ backgroundColor: theme.colors.cards.palcoPrincipal }}
           onPress={() => {
-            alert('PRINCIPAL');
-            console.log('PRINCIPAL');
+            handlePressPalcoPrincipal();
           }}
+
+
         >
-          <View className="flex justify-center items-center">
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>
-              PALCO PRINCIPAL
-            </Text>
+          <View className=' flex justify-center items-center'>
+            <Image source={require("../../../assets/images/palco-principal-semfundo.png")}
+              className="  bottom-[23%]  w-full h-full   "
+              style={{ tintColor: dark ? theme.colors.text.disabled : theme.colors.background.primarySoft, height: 130 }} resizeMode="contain" />
+
+            <Text className=" font-extrabold  bottom-[43%]   "
+              style={{
+                color: dark ? theme.colors.text.disabled : theme.colors.background.primarySoft,
+
+              }}
+
+
+            >Palco Principal</Text>
           </View>
         </Pressable>
 
@@ -95,23 +99,27 @@ export default function Programacao() {
 
       <Link href="/pages/programacao/programacaoGeral" asChild>
 
-        <Pressable
-          id="barracaoZeBigode"
-          className="w-[45%] h-full flex items-center rounded-xl"
-          style={{
-            backgroundColor: 'blue',
-            borderWidth: 4,
-            borderColor: 'white',
-          }}
+        <Pressable id='barracaoZeBigode' className='relative w-[45%] h-full flex items-center rounded-xl '
+
+          style={{ backgroundColor: theme.colors.cards.zeBigode2 }}
           onPress={() => {
-            alert('ZE BIGODE');
-            console.log('ZE BIGODE');
+            
+            handlePressPalcoZeBigode();
           }}
         >
-          <View className="flex justify-center items-center">
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>
-              ZÉ BIGODE
-            </Text>
+          <View className=' flex justify-center items-center  w-[10rem] h-[5rem] translate-y-[10px]'>
+            <Image source={require("../../../assets/images/zebarraca-semfundo.png")}
+              className="  scale-110 "
+              style={{ tintColor: dark ? theme.colors.text.secondary : theme.colors.background.primarySoft, height: 120 , width: 150 }} resizeMode="contain" />
+
+            <Text className=" font-extrabold  bottom-[43%]   "
+              style={{
+                color: dark ? theme.colors.text.secondary : theme.colors.background.primarySoft,
+
+              }}
+
+
+            >Circuito Zé Bigode</Text>
           </View>
         </Pressable>
 
