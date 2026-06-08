@@ -13,23 +13,62 @@ function filtrarEventos(eventos: Evento[]) {
       item.gallery.length === 2
   )
 }
-export async function requisicaoCarrossel(): Promise<Evento[]> {
-    try{
+async function atualizarCarrossel(): Promise<Evento[]> {
+  try {
 
-        const response = await fetch('https://api-para-alimenta-projeto.onrender.com/api/events')
+    console.log("🌐 TENTANDO API")
 
-        const json = await response.json()
+    const response = await fetch(
+      'https://api-para-alimenta-projeto.onrender.com/api/events'
+    )
 
-        await AsyncStorage.setItem("eventos",JSON.stringify(json.data))
+    console.log("✅ API RESPONDEU")
 
-        return filtrarEventos(json.data)
-
-    }catch (error){
-      console.log(error)
-      const cache = await AsyncStorage.getItem("eventos")
-      if (cache) {
-        return filtrarEventos(JSON.parse(cache))
-      }
-      return[]
+    if (!response.ok) {
+      throw new Error(`Erro HTTP: ${response.status}`)
     }
+
+    const json = await response.json()
+
+    console.log("📊 EVENTOS RECEBIDOS:", json.data.length)
+
+    await AsyncStorage.setItem(
+      "eventos",
+      JSON.stringify(json.data)
+    )
+
+    console.log("💾 CACHE SALVO")
+
+    return filtrarEventos(json.data)
+
+  } catch (error) {
+
+    console.log("❌ FALHOU API")
+    console.log(error)
+
+    return []
+  }
+}
+
+export async function requisicaoCarrossel(): Promise<Evento[]> {
+
+  console.log("🚀 INICIOU REQUISIÇÃO CARROSSEL")
+
+  const cache = await AsyncStorage.getItem("eventos")
+
+  if (cache) {
+
+    console.log("📦 VINDO DO CACHE")
+    console.log("📦 TAMANHO CACHE:", JSON.parse(cache).length)
+
+    // atualiza em segundo plano
+    atualizarCarrossel().catch(console.log)
+
+    return filtrarEventos(JSON.parse(cache))
+  }
+
+  console.log("🚫 CACHE NÃO ENCONTRADO")
+  console.log("🌐 VAI BUSCAR NA API")
+
+  return atualizarCarrossel()
 }
