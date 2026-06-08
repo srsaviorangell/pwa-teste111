@@ -19,7 +19,7 @@ export default function NavBottom({ active, setActive }) {
 
     
   return (
-    <View style={{ backgroundColor: theme.colors.background.secondary, borderTopColor: theme.colors.details.border,  borderTopWidth: 4 }} className="flex flex-row justify-around  items-center h-[4.rem] pb-1 pt-1  mx-auto w-full ">
+    <View style={{ backgroundColor: theme.colors.background.secondary, borderTopColor: theme.colors.details.border,  borderTopWidth: 4 }} className="flex flex-row justify-around  items-center h-[4.rem] pb- pt-1  mx-auto w-full bottom-[1rem]  ">
 
 {/* Inicio */}
 
