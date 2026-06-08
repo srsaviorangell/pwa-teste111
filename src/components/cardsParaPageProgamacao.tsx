@@ -1,9 +1,9 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useContext } from 'react'
-import { ThemeContext } from '../theme/ThemeContext'
-import { EventContext } from '../conext/EventContext'
+import React, { useContext } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { FavoritoIcon } from "../components/Icons";
+import { EventContext } from '../conext/EventContext';
 import { getStyles } from "../styles/style";
-import { FavoritoIcon } from "../components/Icons"
+import { ThemeContext } from '../theme/ThemeContext';
 
 type SelecionarDiaProps = {
   diaSelecionado: string | null;
@@ -15,6 +15,13 @@ export default function CardsParaPageProgamacao({diaSelecionado}: SelecionarDiaP
       const { dark, theme } = useContext(ThemeContext)  
         const styles = getStyles(theme, dark)
         const eventosFiltrados = diaSelecionado ? eventos.filter(evento => evento.dia === diaSelecionado) : eventos;
+
+console.log("========== DEBUG ==========");
+console.log("Dia selecionado:", diaSelecionado);
+console.log("Total eventos:", eventos.length);
+console.log("Eventos filtrados:", eventosFiltrados.length);
+console.log("========== fim do debug ==========");
+
   return (
     <>
     {eventosFiltrados.map((item) => (
