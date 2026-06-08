@@ -15,7 +15,9 @@ export default function SelecionarData({setDiaSelecionado}: SelecionarDataProps)
       <View className='flex flex-row gap-1  justify-center  items-center '>
 
         <TouchableOpacity className='border rounded-full flex justify-center  items-center w-[15%] h-8' style={{backgroundColor: dark ? theme.colors.cards.show.mustard : theme.colors.cards.show.strong}}
-                        activeOpacity={0.3} onPress={() => setDiaSelecionado("19")}
+                        activeOpacity={0.3} onPress={() => setDiaSelecionado("19")
+                          
+                        }
 >
 
           <Text className='font-extrabold text-xs '

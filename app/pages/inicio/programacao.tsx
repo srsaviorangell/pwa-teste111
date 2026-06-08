@@ -1,5 +1,5 @@
-import { View, Text, Image, Pressable} from 'react-native';
-import React, { createContext, useContext, useState,  } from 'react';
+import { View, Text, Image, Pressable } from 'react-native';
+import React, { createContext, useContext, useState, } from 'react';
 import { ThemeContext } from '../../../src/theme/ThemeContext';
 import { Link } from 'expo-router'
 import { buscarPalcoPrincipal, buscarZeBigode, requisicaoProgamacaoPorPalco } from '../../../src/requisicao/listaProgamacao';
@@ -13,111 +13,110 @@ const ProgramacaoContext = createContext({});
 
 
 
-  export default function Programacao() {
+export default function Programacao() {
 
   const { setEventos } = useContext(EventContext);
 
   const { dark, theme } = useContext(ThemeContext)
-  
+
   const styles = getStyles(theme, dark)
-  
+
   const [carregandoPalco, setCarregandoPalco] = useState<string | null>(null);
-  
-
-const handlePressPalcoPrincipal = async () => {
-   console.log("CLICOU PALCO PRINCIPAL");
-  setCarregandoPalco('principal');
-
-  try {
-    const dados = await buscarPalcoPrincipal();
-    console.log("📦 Dados recebidos:", dados);
-
-    setEventos(dados);
-
-  } catch (error) {
-        console.log("❌ Erro na requisição:", error);
-
-    console.log(error);
-  } finally {
-    setCarregandoPalco(null);
-        console.log("🏁 Finalizou processo do palco principal");
-
-  }
-};
-
-const handlePressPalcoZeBigode = async () => {
-  setCarregandoPalco('zebigode');
-
-  try {
-    const dados = await buscarZeBigode();
-    console.log("📦 Dados recebidos:", dados);
-
-    setEventos(dados);
-
-  } catch (error) {
-    console.log(error);
-            console.log("❌ Erro na requisição:", error);
-
-  } finally {
-    setCarregandoPalco(null);
-            console.log("🏁 Finalizou processo do palco ze bigode");
-
-  }
-};
-  
-  
- return (
-   <View className=' flex flex-row h-full w-full gap-2  justify-center  ' style={[styles.cardGereis]}>
-        
-        <Link href="/pages/programacao/programacaoGeral" asChild>
-        
-          <Pressable id='palcoPrincipal' className='  w-[45%] h-full flex  items-center rounded-xl'
-            style={{backgroundColor: theme.colors.cards.palcoPrincipal}}
-          onPress={() => handlePressPalcoPrincipal() }
 
 
-            >
-            <View className=' flex justify-center items-center'>
-              <Image source= {require("../../../assets/images/palco-principal-semfundo.png")}
-              className="  bottom-[23%]  w-full h-full   "
-              style={{ tintColor: dark ?theme.colors.text.disabled : theme.colors.background.primarySoft ,  height: 130 }}  resizeMode="contain"/>
-            
-              <Text className=" font-extrabold  bottom-[43%]   "
-              style={{color:  dark ? theme.colors.text.disabled : theme.colors.background.primarySoft,
-                
-              }}
-              
+  const handlePressPalcoPrincipal = async () => {
+    console.log("CLICOU PALCO PRINCIPAL");
+    setCarregandoPalco('principal');
 
-              >Palco Principal</Text>
-            </View>
-          </Pressable>
-        
-        </Link>
-        
-        <Link href="/pages/programacao/programacaoGeral" asChild>
+    try {
+      const dados = await buscarPalcoPrincipal();
+      console.log("📦 Dados recebidos:", dados);
 
-          <Pressable id='barracaoZeBigode' className='relative w-[45%] h-full flex items-center rounded-xl '
-          
-          style={{backgroundColor: theme.colors.cards.zeBigode2 }}
-            onPress={()=> handlePressPalcoZeBigode()}
-            >
-            <View className=' flex justify-center items-center'>
-              <Image source= {require("../../../assets/images/zebarraca-semfundo.png")}
-              className="  bottom-[20%]  w-full h-full   "
-              style={{ tintColor: dark ?theme.colors.text.secondary : theme.colors.background.primarySoft ,  height: 130 }}  resizeMode="contain"/>
-            
-              <Text className=" font-extrabold  bottom-[43%]   "
-              style={{color:  dark ? theme.colors.text.secondary : theme.colors.background.primarySoft,
+      setEventos(dados);
 
-              }}
-              
+    } catch (error) {
+      console.log("❌ Erro na requisição:", error);
 
-              >Circuito Zé Bigode</Text>
-            </View>
-          </Pressable>
-          
-        </Link>
+      console.log(error);
+    } finally {
+      setCarregandoPalco(null);
+      console.log("🏁 Finalizou processo do palco principal");
 
-   </View>
- );
+    }
+  };
+
+  const handlePressPalcoZeBigode = async () => {
+    setCarregandoPalco('zebigode');
+
+    try {
+      const dados = await buscarZeBigode();
+      console.log("📦 Dados recebidos:", dados);
+
+      setEventos(dados);
+
+    } catch (error) {
+      console.log(error);
+      console.log("❌ Erro na requisição:", error);
+
+    } finally {
+      setCarregandoPalco(null);
+      console.log("🏁 Finalizou processo do palco ze bigode");
+
+    }
+  };
+
+
+  return (
+    <View className=' flex flex-row h-full w-full gap-2  justify-center  ' style={[styles.cardGereis]}>
+
+      <Link href="/pages/programacao/programacaoGeral" asChild>
+
+        <Pressable
+          id="palcoPrincipal"
+          className="w-[45%] h-full flex items-center rounded-xl"
+          style={{
+            backgroundColor: 'red',
+            borderWidth: 4,
+            borderColor: 'yellow',
+          }}
+          onPress={() => {
+            alert('PRINCIPAL');
+            console.log('PRINCIPAL');
+          }}
+        >
+          <View className="flex justify-center items-center">
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>
+              PALCO PRINCIPAL
+            </Text>
+          </View>
+        </Pressable>
+
+      </Link>
+
+      <Link href="/pages/programacao/programacaoGeral" asChild>
+
+        <Pressable
+          id="barracaoZeBigode"
+          className="w-[45%] h-full flex items-center rounded-xl"
+          style={{
+            backgroundColor: 'blue',
+            borderWidth: 4,
+            borderColor: 'white',
+          }}
+          onPress={() => {
+            alert('ZE BIGODE');
+            console.log('ZE BIGODE');
+          }}
+        >
+          <View className="flex justify-center items-center">
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>
+              ZÉ BIGODE
+            </Text>
+          </View>
+        </Pressable>
+
+      </Link>
+
+    </View>
+  );
 }
