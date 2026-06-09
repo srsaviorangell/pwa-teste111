@@ -1,20 +1,11 @@
-import { MapContainer, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
+
+import { View } from "react-native";
+import MapaGeralSvg from '../../assets/images/total.svg';
 
 
 export default function MapaGeral() {
   return (
-    <MapContainer
-      center={[-11.297384, -41.851860]}
-      zoom={17}
-      style={{
-        width: '100%',
-        height: '100vh',
-      }}
-    >
-      <TileLayer
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-    </MapContainer>
+    <View className="border">
+    </View>
   )
 }
