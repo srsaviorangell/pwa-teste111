@@ -1,7 +1,6 @@
 import { View, Image, Text } from 'react-native'
 
 export default function MapaGeral() {
-  const [zoom, setZoom] = useState(1);
 
   return (
     <>
