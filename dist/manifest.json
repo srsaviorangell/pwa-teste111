@@ -1,7 +1,9 @@
 {
   "name": "São João Irecê",
   "short_name": "São João",
+  "description": "Aplicação oficial do São João de Irecê — programação completa, mapas e informações na palma da sua mão",
   "start_url": "/?source=pwa",
+  "id": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -13,14 +15,34 @@
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
-
     },
     {
       "src": "/icons/icon512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
-
+    },
+    {
+      "src": "/icons/icon512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Tela inicial do São João Irecê"
+    },
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Visão geral do São João Irecê"
     }
   ]
 }
