@@ -2,10 +2,10 @@
   "expo": {
     "name": "saojoaoirece",
     "slug": "saojoaoirece",
-    "platforms":[
-       "ios",
-       "android",
-       "web"
+    "platforms": [
+      "ios",
+      "android",
+      "web"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -44,7 +44,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-status-bar"
     ],
     "experiments": {
       "typedRoutes": true

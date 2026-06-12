@@ -119,7 +119,7 @@ export default function Programacao() {
               }}
 
 
-            >Circuito Bigode</Text>
+            >Circuito Zé Bigode</Text>
           </View>
         </Pressable>
 
