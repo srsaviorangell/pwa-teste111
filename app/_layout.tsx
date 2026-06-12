@@ -23,16 +23,8 @@ function LayoutContent() {
   const { theme, dark } = useContext(ThemeContext);
   const [active, setActive] = useState("home");
 
-  // 3. Script que ativa o instalador do PWA no celular
-  useEffect(() => {
-    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('Service Worker registrado:', reg.scope))
-          .catch(err => console.log('Erro ao registrar Service Worker:', err));
-      });
-    }
-  }, []);
+  useServiceWorker();
+  
 
   return (
     <>
@@ -53,4 +45,16 @@ function LayoutContent() {
       </SafeAreaProvider>
     </>
   );
+}
+
+
+export function useServiceWorker() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then(() => console.log("SW registrado"))
+        .catch((err) => console.log("Erro SW", err));
+    }
+  }, []);
 }
