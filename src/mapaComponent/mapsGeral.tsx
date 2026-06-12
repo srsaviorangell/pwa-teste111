@@ -69,9 +69,9 @@ export default function MapaGeral() {
     intervalo.current = setInterval(() => {
       setPosicao((p) => ({
         ...p,
-        [eixo]: p[eixo] + direcao * 10,
+        [eixo]: p[eixo] + direcao * 85,
       }));
-    }, 16); // ~60fps
+    }, 80); 
   };
 
   const pararMovimento = () => {
