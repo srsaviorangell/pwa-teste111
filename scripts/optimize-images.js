@@ -134,3 +134,5 @@ function formatBytes(bytes) {
   console.log('\n✅ Imagens otimizadas!');
   console.log('⚠  Lembre-se de rodar `npm run build:web` para regenerar o dist/');
 })();
+
+///savio louco 

@@ -1,5 +1,5 @@
-import { useContext, useState, useRef  } from 'react';
-import { Animated, Image, Text, TouchableOpacity, View, PanResponder } from 'react-native';
+import { useContext, useState, useRef } from 'react';
+import { Animated, Image, Text, TouchableOpacity, View } from 'react-native';
 import { ThemeContext } from '../theme/ThemeContext';
 import { HomerIcon, ZoomMais, ZoomMenos } from '../components/Icons'
 
@@ -59,28 +59,29 @@ export default function MapaGeral() {
     y: 0,
   })
 
-  const [offset, setOffset] = useState({
-  x: 0,
-  y: 0,
-});
 
-const offsetInicial = useRef({ x: 0, y: 0 }); 
+  const intervalo = useRef<NodeJS.Timeout | null>(null);
+
+  const iniciarMovimento = (
+    eixo: "x" | "y",
+    direcao: 1 | -1
+  ) => {
+    intervalo.current = setInterval(() => {
+      setPosicao((p) => ({
+        ...p,
+        [eixo]: p[eixo] + direcao * 10,
+      }));
+    }, 16); // ~60fps
+  };
+
+  const pararMovimento = () => {
+    if (intervalo.current) {
+      clearInterval(intervalo.current);
+      intervalo.current = null;
+    }
+  };
 
 
-const panResponder = PanResponder.create({
-  onStartShouldSetPanResponder: () => zoom > 1,
-
-  onPanResponderGrant: () => {
-    offsetInicial.current = offset;
-  },
-
-  onPanResponderMove: (_, gestureState) => {
-    setOffset({
-      x: offsetInicial.current.x + gestureState.dx,
-      y: offsetInicial.current.y + gestureState.dy,
-    });
-  },
-});
 
   return (
     <>
@@ -162,9 +163,9 @@ const panResponder = PanResponder.create({
           </TouchableOpacity>
 
           <TouchableOpacity
-          disabled={zoom <= 1}
+            disabled={zoom <= 1}
             onPress={() => {
-              
+
               setZoom((valorAtual) => Math.max(valorAtual - 0.5, 1));
             }}
           >
@@ -173,6 +174,77 @@ const panResponder = PanResponder.create({
 
 
         </View>
+        {zoom > 1 && (
+          <>
+            {/* CIMA */}
+            <TouchableOpacity
+              activeOpacity={0}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: "33%",
+                width: "34%",
+                height: "40%",
+                zIndex: 100,
+                opacity: 0,
+                backgroundColor: "red", // remova depois dos testes
+              }}
+              onPressIn={() => iniciarMovimento("y", -1)}
+              onPressOut={pararMovimento}
+            />
+
+            {/* BAIXO */}
+            <TouchableOpacity
+              activeOpacity={0}
+              style={{
+                position: "absolute",
+                bottom: 170,
+                left: "33%",
+                width: "34%",
+                height: "33%",
+                zIndex: 100,
+                opacity: 0,
+                backgroundColor: "blue", // remova depois dos testes
+              }}
+              onPressIn={() => iniciarMovimento("y", 1)}
+              onPressOut={pararMovimento}
+            />
+
+            {/* ESQUERDA */}
+            <TouchableOpacity
+              activeOpacity={0}
+              style={{
+                position: "absolute",
+                left: 0,
+                bottom: "35%",
+                width: "33%",
+                height: "55%",
+                zIndex: 100,
+                opacity: 0,
+                backgroundColor: "green", // remova depois dos testes
+              }}
+              onPressIn={() => iniciarMovimento("x", -1)}
+              onPressOut={pararMovimento}
+            />
+
+            {/* DIREITA */}
+            <TouchableOpacity
+              activeOpacity={0}
+              style={{
+                position: "absolute",
+                right: 0,
+                bottom: "48%",
+                width: "33%",
+                height: "35%",
+                zIndex: 100,
+                opacity: 0,
+                backgroundColor: "yellow", // remova depois dos testes
+              }}
+              onPressIn={() => iniciarMovimento("x", 1)}
+              onPressOut={pararMovimento}
+            />
+          </>
+        )}
 
         <View id='mapa' style={{
           width: 500,
@@ -181,11 +253,10 @@ const panResponder = PanResponder.create({
         }}
         >
           <Animated.View
-            {...panResponder.panHandlers}
             style={{
               transform: [
-                { translateX: -posicao.x + offset.x},
-                { translateY: -posicao.y + offset.y },
+                { translateX: -posicao.x },
+                { translateY: -posicao.y },
                 { scale: zoom },
               ],
             }}
@@ -198,6 +269,7 @@ const panResponder = PanResponder.create({
               resizeMode="cover" />
           </Animated.View>
         </View>
+
       </View >
     </>
   )
