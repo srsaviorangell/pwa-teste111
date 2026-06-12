@@ -1,15 +1,10 @@
 import { View, Text, Image, Pressable } from 'react-native';
-import React, { createContext, useContext, useState, } from 'react';
+import React, { useContext, useState } from 'react';
 import { ThemeContext } from '../../../src/theme/ThemeContext';
 import { Link } from 'expo-router'
-import { buscarPalcoPrincipal, buscarZeBigode, requisicaoProgamacaoPorPalco } from '../../../src/requisicao/listaProgamacao';
-import type { Evento } from '../../../src/requisicao/listaProgamacao';
+import { buscarPalcoPrincipal, buscarZeBigode } from '../../../src/requisicao/listaProgamacao';
 import { EventContext } from '../../../src/conext/EventContext';
 import { getStyles } from "../../../src/styles/style";
-
-
-
-const ProgramacaoContext = createContext({});
 
 
 
@@ -25,23 +20,14 @@ export default function Programacao() {
 
 
   const handlePressPalcoPrincipal = async () => {
-    console.log("CLICOU PALCO PRINCIPAL");
     setCarregandoPalco('principal');
 
     try {
       const dados = await buscarPalcoPrincipal();
-      console.log("📦 Dados recebidos:", dados);
-
       setEventos(dados);
-
     } catch (error) {
-      console.log("❌ Erro na requisição:", error);
-
-      console.log(error);
     } finally {
       setCarregandoPalco(null);
-      console.log("🏁 Finalizou processo do palco principal");
-
     }
   };
 
@@ -50,18 +36,10 @@ export default function Programacao() {
 
     try {
       const dados = await buscarZeBigode();
-      console.log("📦 Dados recebidos:", dados);
-
       setEventos(dados);
-
     } catch (error) {
-      console.log(error);
-      console.log("❌ Erro na requisição:", error);
-
     } finally {
       setCarregandoPalco(null);
-      console.log("🏁 Finalizou processo do palco ze bigode");
-
     }
   };
 

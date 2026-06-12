@@ -7,7 +7,13 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "powershell -ExecutionPolicy Bypass -File scripts/build-web.ps1"
+    "build:web": "powershell -ExecutionPolicy Bypass -File scripts/build-web.ps1",
+    "perf": "node perf-tests/run-all.js",
+    "optimize:images": "node scripts/optimize-images.js",
+    "perf:images": "node perf-tests/image-benchmark.js",
+    "perf:bundle": "node perf-tests/bundle-size.js",
+    "perf:api": "node perf-tests/api-latency.js",
+    "perf:render": "node perf-tests/render-benchmark.js"
   },
   "dependencies": {
     "@expo/metro-runtime": "~56.0.15",
@@ -36,6 +42,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.14",
+    "sharp": "^0.35.1",
     "typescript": "~6.0.3"
   },
   "private": true

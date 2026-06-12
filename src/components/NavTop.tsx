@@ -1,27 +1,11 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import { Animated, Image, TouchableOpacity, View } from 'react-native';
+import React, { useContext } from 'react';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { ThemeContext } from "../theme/ThemeContext";
 
 
 
 export default function NavTop() {
   const { theme, dark, toggleTheme } = useContext(ThemeContext);
-
-  const anim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(anim, {
-      toValue: dark ? 1 : 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  }, [dark]);
-
-  const translateX = anim.interpolate({// aqui vai mudar a distancia do botão e da animação ?
-    inputRange: [0, 1],
-    outputRange: [0, 30]
-
-  })
 
   return (
     <>
@@ -35,7 +19,7 @@ export default function NavTop() {
           elevation: 10,
         }}>
         <View className="absolute left-0 right-0 items-center bottom-[-5.7rem]  ">
-          <Image source={require("../../assets/images/logosobra11.png")}
+          <Image source={require("../../assets/images/logosobra11.webp")}
             style={{
               height: 220,
             }} 
@@ -45,9 +29,9 @@ export default function NavTop() {
 
         <TouchableOpacity onPress={toggleTheme} className="items-end border  ml-auto bottom-10 right-8 h-[2.0rem] w-[3.5rem]  rounded-full  border-t-[3px] border-l-[2px] border-black/10
   border-b-[1px] border-r-[1px] border-white/80" style={{ backgroundColor: dark ? theme.colors.background.elevanted : theme.colors.text.disabled }}>
-          <Animated.View
+          <View
             style={{
-              transform: [{ translateX }],
+              transform: [{ translateX: dark ? 30 : 0 }],
             }}>
             <View className="  items-center   w-[4.8rem] h-[2.2rem]">
               {dark ? (
@@ -68,7 +52,7 @@ export default function NavTop() {
               )}
 
             </View>
-          </Animated.View>
+          </View>
         </TouchableOpacity>
 
       </View>

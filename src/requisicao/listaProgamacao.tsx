@@ -38,7 +38,6 @@ async function fetchAtualizacao(): Promise<Evento[]> {
     return json.data;
 
   } catch (error) {
-    console.log("Erro API:", error);
     return [];
   }
 }
@@ -51,7 +50,7 @@ export async function requisicaoProgamacaoPorPalco(): Promise<Evento[]> {
     const parsed = JSON.parse(cache);
 
     // atualiza em background (não bloqueia UI)
-    fetchAtualizacao().catch(console.log);
+    fetchAtualizacao().catch(() => {});
 
     return parsed;
   }

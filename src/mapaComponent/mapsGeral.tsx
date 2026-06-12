@@ -190,7 +190,7 @@ const panResponder = PanResponder.create({
               ],
             }}
           >
-            <Image source={require("../../assets/images/mapa4x.png")}
+            <Image source={require("../../assets/images/mapa4x.webp")}
               style={{
                 height: 663,
                 width: 500,

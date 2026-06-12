@@ -16,12 +16,6 @@ export default function CardsParaPageProgamacao({diaSelecionado}: SelecionarDiaP
         const styles = getStyles(theme, dark)
         const eventosFiltrados = diaSelecionado ? eventos.filter(evento => evento.dia === diaSelecionado) : eventos;
 
-console.log("========== DEBUG ==========");
-console.log("Dia selecionado:", diaSelecionado);
-console.log("Total eventos:", eventos.length);
-console.log("Eventos filtrados:", eventosFiltrados.length);
-console.log("========== fim do debug ==========");
-
   return (
     <>
     {eventosFiltrados.map((item) => (
