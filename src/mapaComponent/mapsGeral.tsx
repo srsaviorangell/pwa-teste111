@@ -53,6 +53,8 @@ export default function MapaGeral() {
 
   const cardLargura = larguraTela * 0.98
 
+const [modoInteracao, setModoInteracao] = useState<"move" | "zoom">("move");
+
   const [zoom, setZoom] = useState(1);
   const [posicao, setPosicao] = useState({
     x: 0,
@@ -60,27 +62,47 @@ export default function MapaGeral() {
   })
 
 
-  const intervalo = useRef<NodeJS.Timeout | null>(null);
+  const intervalo = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const iniciarMovimento = (
-    eixo: "x" | "y",
-    direcao: 1 | -1
-  ) => {
-    intervalo.current = setInterval(() => {
-      setPosicao((p) => ({
+  const iniciarMovimento = (eixo: "x" | "y", direcao: 1 | -1 ) => {
+  pararMovimento(); // sempre mata antes
+
+  intervalo.current = setInterval(() => {
+    setPosicao((p) => {
+      const novaPos = {
         ...p,
         [eixo]: p[eixo] + direcao * 85,
-      }));
-    }, 80); 
-  };
+      };
+
+      console.log("POSICAO:", novaPos); // debug real
+
+      return novaPos;
+    });
+  }, 80);
+};
 
   const pararMovimento = () => {
+      console.log("PAROU");
+
     if (intervalo.current) {
       clearInterval(intervalo.current);
       intervalo.current = null;
     }
   };
 
+  const aumentarZoom = () => {
+  pararMovimento();
+  setModoInteracao("zoom");
+  setPosicao({ x: 0, y: 0 });
+  setZoom((v) => Math.min(v + 0.5, 5));
+};
+
+const diminuirZoom = () => {
+  pararMovimento();
+  setModoInteracao("zoom");
+  setPosicao({ x: 0, y: 0 });
+  setZoom((v) => Math.max(v - 0.5, 1));
+};
 
 
   return (
@@ -91,15 +113,15 @@ export default function MapaGeral() {
         setLarguraTela(largura)
       }}>
 
-        <View style={{ left: cardLargura / 6.5, borderColor: theme.colors.text.disabled }} className=' absolute w-[70%] h-20 z-10   top-[76%] rounded-[10rem] flex items-center justify-center border-[3px]' >
+        <View style={{ left: cardLargura / 5.5, borderColor: theme.colors.text.disabled }} className=' absolute z-10   top-[76%] rounded-[10rem] flex items-center justify-center border-[3px] ' >
           <View style={{
             width: cardLargura - 145,
-            left: cardLargura - 490,
+            left: cardLargura - 498,
 
             backgroundColor: dark ? `${theme.colors.cards.zeBigode}50` : `${theme.colors.cards.zeBigode2}80`
-          }} className=' h-[75px] rounded-[10rem] flex flex-row items-center justify-center gap-3' >
+          }} className='  h-[75px] rounded-[10rem] flex flex-row items-center justify-center gap-3' >
             {pontos.map((ponto) => (
-              <TouchableOpacity key={ponto.id} style={{ backgroundColor: dark ? `${theme.colors.text.secondary}` : `${theme.colors.text.secondary}` }} className='border w-13 h-12 rounded-full flex items-center justify-center'
+              <TouchableOpacity key={ponto.id} style={{ backgroundColor: dark ? `${theme.colors.text.secondary}` : `${theme.colors.text.secondary}` }} className='border w-13 h-12 rounded-full '
                 onPress={() => {
                   setZoom(3.5)
 
@@ -145,29 +167,24 @@ export default function MapaGeral() {
           position: "absolute",
           top: 350,
           left: 370,
-          zIndex: 50,
+          zIndex: 200,
           width: 40,
           height: 100,
           gap: 20,
           borderColor: theme.colors.text.disabled,
           backgroundColor: dark ? `${theme.colors.text.secondary}` : `${theme.colors.text.secondary}`
-        }} className='z-10  left-[77%] top-[65%]  flex items-center justify-center border-[3px] rounded-[10rem] ' >
+        }} className='  left-[77%] top-[65%]  flex items-center justify-center border-[3px] rounded-[10rem] ' >
 
 
           <TouchableOpacity
-            onPress={() => {
-              setZoom((valorAtual) => Math.min(valorAtual + 0.5, 5));
-            }}
+            onPress={aumentarZoom}
           >
             <ZoomMais />
           </TouchableOpacity>
 
           <TouchableOpacity
             disabled={zoom <= 1}
-            onPress={() => {
-
-              setZoom((valorAtual) => Math.max(valorAtual - 0.5, 1));
-            }}
+            onPress={diminuirZoom}
           >
             <ZoomMenos />
           </TouchableOpacity>
@@ -179,6 +196,7 @@ export default function MapaGeral() {
             {/* CIMA */}
             <TouchableOpacity
               activeOpacity={0}
+              
               style={{
                 position: "absolute",
                 top: 0,
@@ -189,7 +207,8 @@ export default function MapaGeral() {
                 opacity: 0,
                 backgroundColor: "red", // remova depois dos testes
               }}
-              onPressIn={() => iniciarMovimento("y", -1)}
+              onPressIn={() => {iniciarMovimento("y", -1);   console.log("CIMA")
+}}
               onPressOut={pararMovimento}
             />
 
@@ -206,7 +225,8 @@ export default function MapaGeral() {
                 opacity: 0,
                 backgroundColor: "blue", // remova depois dos testes
               }}
-              onPressIn={() => iniciarMovimento("y", 1)}
+              onPressIn={() => {iniciarMovimento("y", 1);   console.log("baixo");
+}}
               onPressOut={pararMovimento}
             />
 
@@ -223,12 +243,13 @@ export default function MapaGeral() {
                 opacity: 0,
                 backgroundColor: "green", // remova depois dos testes
               }}
-              onPressIn={() => iniciarMovimento("x", -1)}
+              onPressIn={() =>{ iniciarMovimento("x", -1);   console.log("esquerda");
+}}
               onPressOut={pararMovimento}
             />
 
             {/* DIREITA */}
-            <TouchableOpacity
+            <TouchableOpacity className='border'
               activeOpacity={0}
               style={{
                 position: "absolute",
