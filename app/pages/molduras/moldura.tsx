@@ -16,7 +16,7 @@ export default function Molduras() {
           <Text >local da moldura</Text>
         </View>
         <View className="flex justify-center items-center border  w-[90%] h-[10%] mt-[1rem]">
-          <Text >salva e o clic para disparar
+          <Text >salva  para disparar e compatilhar
 
           </Text>
         </View>
