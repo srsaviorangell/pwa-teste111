@@ -16,7 +16,7 @@ export default function favoritos() {
           <Text className="text-gray-400 text-lg">Nenhum favorito ainda</Text>
         </View>
       ) : (
-        <View className="p-2 gap-2">
+        <View className="p-2 gap-3">
           <CardsParaPageProgamacao diaSelecionado={null} eventos={favoritosEventos} />
         </View>
       )}
