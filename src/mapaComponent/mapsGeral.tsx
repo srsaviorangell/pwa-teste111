@@ -74,7 +74,6 @@ const [modoInteracao, setModoInteracao] = useState<"move" | "zoom">("move");
         [eixo]: p[eixo] + direcao * 85,
       };
 
-      console.log("POSICAO:", novaPos); // debug real
 
       return novaPos;
     });
@@ -82,7 +81,7 @@ const [modoInteracao, setModoInteracao] = useState<"move" | "zoom">("move");
 };
 
   const pararMovimento = () => {
-      console.log("PAROU");
+      
 
     if (intervalo.current) {
       clearInterval(intervalo.current);
@@ -109,7 +108,7 @@ const diminuirZoom = () => {
     <>
       <View className="flex-1 relative" onLayout={(event) => {
         const largura = event.nativeEvent.layout.width
-        console.log("largura e " + largura);
+       
         setLarguraTela(largura)
       }}>
 
@@ -207,7 +206,7 @@ const diminuirZoom = () => {
                 opacity: 0,
                 backgroundColor: "red", // remova depois dos testes
               }}
-              onPressIn={() => {iniciarMovimento("y", -1);   console.log("CIMA")
+              onPressIn={() => {iniciarMovimento("y", -1);   
 }}
               onPressOut={pararMovimento}
             />
@@ -225,7 +224,7 @@ const diminuirZoom = () => {
                 opacity: 0,
                 backgroundColor: "blue", // remova depois dos testes
               }}
-              onPressIn={() => {iniciarMovimento("y", 1);   console.log("baixo");
+              onPressIn={() => {iniciarMovimento("y", 1);   
 }}
               onPressOut={pararMovimento}
             />
@@ -243,7 +242,7 @@ const diminuirZoom = () => {
                 opacity: 0,
                 backgroundColor: "green", // remova depois dos testes
               }}
-              onPressIn={() =>{ iniciarMovimento("x", -1);   console.log("esquerda");
+              onPressIn={() =>{ iniciarMovimento("x", -1);   
 }}
               onPressOut={pararMovimento}
             />
