@@ -2,18 +2,23 @@ import React, { useContext } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { FavoritoIcon } from "../components/Icons";
 import { EventContext } from '../conext/EventContext';
+import { FavoritesContext } from '../conext/FavoritesContext';
 import { getStyles } from "../styles/style";
 import { ThemeContext } from '../theme/ThemeContext';
+import type { Evento } from '../requisicao/listaProgamacao';
 
 type SelecionarDiaProps = {
   diaSelecionado: string | null;
+  eventos?: Evento[];
 };
 
-export default function CardsParaPageProgamacao({diaSelecionado}: SelecionarDiaProps) {
-    const { eventos } = useContext(EventContext);
+export default function CardsParaPageProgamacao({diaSelecionado, eventos: eventosProp}: SelecionarDiaProps) {
+    const { eventos: eventosContext } = useContext(EventContext);
+    const { isFavorite, toggleFavorite } = useContext(FavoritesContext);
     
       const { dark, theme } = useContext(ThemeContext)  
         const styles = getStyles(theme, dark)
+        const eventos = eventosProp ?? eventosContext;
         const eventosFiltrados = diaSelecionado ? eventos.filter(evento => evento.dia === diaSelecionado) : eventos;
 
   return (
@@ -43,8 +48,10 @@ export default function CardsParaPageProgamacao({diaSelecionado}: SelecionarDiaP
                   <Text  className=" font-semibold text-sm mt-[15]"
                   style={[styles.textPadroes]}>SÃO JOÃO DO SECULO</Text>
                    
-                  <TouchableOpacity className=' mr-3  mt-3 p-1 rounded-full bg-white/40'>
-                    <FavoritoIcon size={25} color="rgba(0, 0, 0, 0.5)" />
+                  <TouchableOpacity className=' mr-3  mt-3 p-1 rounded-full bg-white/40'
+                    onPress={() => toggleFavorite(item.id)}
+                  >
+                    <FavoritoIcon size={25} color={isFavorite(item.id) ? "#FF0000" : "rgba(0, 0, 0, 0.5)"} filled={isFavorite(item.id)} />
                   </TouchableOpacity> 
                 </View>
     

@@ -8,12 +8,15 @@ import NavBottom from "../src/components/NavBottom";
 import "../src/styles/global.css";
 import { ThemeProvider, ThemeContext } from "../src/theme/ThemeContext";
 import { EventProvider } from "../src/conext/EventContext";
+import { FavoritesProvider } from "../src/conext/FavoritesContext";
 
 export default function Layout() {
   return (
     <ThemeProvider>
       <EventProvider>
-        <LayoutContent />
+        <FavoritesProvider>
+          <LayoutContent />
+        </FavoritesProvider>
       </EventProvider>
     </ThemeProvider>
   );
