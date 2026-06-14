@@ -6,7 +6,7 @@ const MapaGeral = React.lazy(() => import('../../../src/mapaComponent/mapsGeral'
 export default function Maps() {
   return (
     
-      <View className="">
+      <View className="flex ">
         <Suspense fallback={<ActivityIndicator size="large" color="#ff6600" className="mt-20" />}>
           <MapaGeral />
         </Suspense>
