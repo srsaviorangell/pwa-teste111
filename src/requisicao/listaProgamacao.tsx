@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   mes: string;
   horario: string;
   stage: string;
+  dia_semana: string;
 }
 
 

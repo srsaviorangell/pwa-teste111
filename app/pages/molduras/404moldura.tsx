@@ -6,7 +6,7 @@ import  Cabecalho  from '../../../src/components/molduras/mold-cabecalho'
 
 
 
-export default function Molduras() {
+export default function Molduras404() {
   const { dark, theme } = useContext(ThemeContext)
   const styles = getStyles(theme, dark)
   return (

@@ -29,7 +29,7 @@ export default function CardsParaPageProgamacao({diaSelecionado, eventos: evento
             <View id="card-filho1" className=' border-r w-[22%] h-full flex justify-center items-center gap-2'>
     
               <Text  className=" font-semibold text-sm"
-                style={[styles.textPadroes]}>SEX</Text>
+                style={[styles.textPadroes]}>{item.dia_semana}</Text>
     
               <Text className=" font-black text-3xl " 
                 style={[styles.textDataChamativa]}>{item.dia}</Text>
